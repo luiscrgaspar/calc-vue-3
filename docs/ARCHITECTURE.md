@@ -2,10 +2,12 @@
 
 ## Overview
 
-This project is a simple scientific calculator built with Vue 2, TypeScript,
+This project is a simple scientific calculator built with Vue 3, TypeScript,
 Vuex, and vue-i18n. The application is organized into Vue components, global
 state in Vuex, pure services for calculation rules, typed constants for
 calculator configuration, translations in JSON files, and unit tests.
+Vue 3 also gives the project stronger TypeScript support for component and
+store contracts.
 
 The current architecture separates the main responsibilities:
 
@@ -162,8 +164,9 @@ files.
 
 ## Design Decisions
 
-- Vue 2 remains the project's base; new changes should follow the existing
-  Options API pattern used by the components.
+- Vue 3 remains the project's base; new changes should follow the existing
+  component patterns used by the codebase today, while Composition API or
+  `<script setup>` can be introduced where they improve clarity.
 - Vuex remains the global state mechanism while the app is small and centered on
   a single calculator.
 - Unit tests are preferred over end-to-end tests because most of the risk lives
@@ -271,8 +274,8 @@ architecture changes.
 1. Gradually reduce the orchestration responsibility of
    `CalculatorContainer.vue`, moving more complex flows into actions or
    dedicated helpers if the component grows again.
-2. Improve the typing of the `mapActions` and `mapGetters` helpers, which in
-   Vue 2 are still not very expressive for TypeScript.
+2. Continue tightening the typing of store helpers and component boundaries as
+   the codebase evolves.
 3. Review whether `currentResult` is still necessary or whether the display can
    be simplified using only `currentValue` and derived state.
 4. Add unit tests for additional edge cases, such as factorial of non-integer

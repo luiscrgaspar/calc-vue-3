@@ -12,7 +12,11 @@ const i18n = createI18n({
   globalInjection: true,
   locale: "en-US",
   fallbackLocale: "en-US",
-  messages: { es, en, pt },
+  messages: {
+    "en-US": en,
+    "es-ES": es,
+    "pt-PT": pt,
+  },
   silentFallbackWarn: true,
 });
 
@@ -34,7 +38,11 @@ function clickButton(wrapper: ReturnType<typeof mountCalculator>, text: string) 
     .find((lineButton) => lineButton.text() === text);
 
   expect(button).toBeTruthy();
-  return button!.trigger("click");
+  if (!button) {
+    throw new Error(`Button not found: ${text}`);
+  }
+
+  return button.trigger("click");
 }
 
 describe("CalculatorContainer", () => {

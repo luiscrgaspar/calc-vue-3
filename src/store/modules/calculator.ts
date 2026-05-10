@@ -70,6 +70,10 @@ const mutations = {
       return;
     }
 
+    if (payload === "." && state.currentValue.includes(".")) {
+      return;
+    }
+
     state.currentValue =
       (state.currentValue === "0" && payload !== ".") ||
       state.goingToDoOperation

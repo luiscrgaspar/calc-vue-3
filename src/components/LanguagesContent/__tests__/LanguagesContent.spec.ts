@@ -1,24 +1,46 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { shallowMount } from "@vue/test-utils";
 import { createI18n } from "vue-i18n";
+import { createStore } from "vuex";
 import es from "@/locales/es-ES.json";
 import en from "@/locales/en-US.json";
 import pt from "@/locales/pt-PT.json";
 import LanguagesContent from "@/components/LanguagesContent/LanguagesContent.vue";
-import store from "@/store/index";
+import calculator from "@/store/modules/calculator";
 
-const i18n = createI18n({
-  legacy: true,
-  globalInjection: true,
-  locale: "en-US",
-  fallbackLocale: "en-US",
-  messages: { es, en, pt },
-  silentFallbackWarn: true,
-});
+function createTestStore() {
+  return createStore({
+    modules: {
+      calculator: {
+        ...calculator,
+        state: JSON.parse(JSON.stringify(calculator.state)),
+      },
+    },
+  });
+}
+
+function createTestI18n() {
+  return createI18n({
+    legacy: true,
+    globalInjection: true,
+    locale: "en-US",
+    fallbackLocale: "en-US",
+    messages: {
+      "en-US": en,
+      "es-ES": es,
+      "pt-PT": pt,
+    },
+    silentFallbackWarn: true,
+  });
+}
 
 describe("LanguagesContent", () => {
   let wrapper: any;
+  let store: ReturnType<typeof createTestStore>;
+  let i18n: ReturnType<typeof createTestI18n>;
   beforeEach(() => {
+    store = createTestStore();
+    i18n = createTestI18n();
     wrapper = shallowMount(LanguagesContent, {
       global: {
         plugins: [store, i18n],

@@ -1,4 +1,7 @@
 import "vue";
+import type { Store } from "vuex";
+
+import type { RootState } from "@/store";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -6,7 +9,6 @@ declare module "@vue/runtime-core" {
     $i18n: {
       locale: string;
     };
-    $store: any;
+    $store: Store<RootState>;
   }
 }
-

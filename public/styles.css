@@ -7,3 +7,11 @@ body {
   min-height: 100vh;
   background-color: black;
 }
+
+noscript {
+  display: block;
+  padding: 1rem;
+  color: #fff;
+  background: #111;
+  text-align: center;
+}

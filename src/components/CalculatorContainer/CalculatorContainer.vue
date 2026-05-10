@@ -160,6 +160,8 @@ export default defineComponent({
     },
     clickOnPiKey(): void {
       this.setCurrentValue(Math.PI.toFixed(11).toString());
+      this.setError("");
+      this.setIsInfinity(false);
     },
     clickOnCEKey(): void {
       this.currentResult !== "" || this.error !== "" || this.isInfinity
@@ -171,6 +173,8 @@ export default defineComponent({
     },
     clickOnMRKey(): void {
       this.setCurrentValue(this.currentMemoryValue);
+      this.setError("");
+      this.setIsInfinity(false);
     },
     clickOnMSKey(): void {
       if (this.currentValue !== "0") {
@@ -183,8 +187,13 @@ export default defineComponent({
       );
     },
     clickOnBackKey(): void {
+      const trimmedValue =
+        this.currentValue.length === 1
+          ? "0"
+          : this.currentValue.slice(0, -1);
+
       this.setCurrentValue(
-        this.currentValue.length === 1 ? "0" : this.currentValue.slice(0, -1)
+        trimmedValue === "" || trimmedValue === "-" ? "0" : trimmedValue
       );
     },
     setFormattedCurrentValue(result: number): void {
@@ -210,25 +219,22 @@ export default defineComponent({
       value: number,
       error: CalculatorErrorKey
     ): void {
+      this.setIsInfinity(false);
       this.setCurrentValue(
-        this.currentValue >= 0 ? formatRootResult(value) : this.$t(error)
+        Number.isNaN(value) ? this.$t(error) : formatRootResult(value)
       );
     },
     clickOnSquareRoot(): void {
-      this.setError(
-        this.currentValue < 0 ? "invalid_number_for_square_root" : ""
-      );
       const valueToMakeSquareRoot = calculateSquareRoot(+this.currentValue);
+      this.setError(Number.isNaN(valueToMakeSquareRoot) ? "invalid_number_for_square_root" : "");
       this.setResultOperationOrInvalidInput(
         valueToMakeSquareRoot,
         "invalid_number_for_square_root"
       );
     },
     clickOnCubicRoot(): void {
-      this.setError(
-        this.currentValue < 0 ? "invalid_number_for_cubic_root" : ""
-      );
       const valueToMakeCubicRoot = calculateCubicRoot(+this.currentValue);
+      this.setError(Number.isNaN(valueToMakeCubicRoot) ? "invalid_number_for_cubic_root" : "");
       this.setResultOperationOrInvalidInput(
         valueToMakeCubicRoot,
         "invalid_number_for_cubic_root"
@@ -257,11 +263,16 @@ export default defineComponent({
     },
     clickOnEKey(): void {
       this.setCurrentValue(Math.E.toFixed(11).toString());
+      this.setError("");
+      this.setIsInfinity(false);
     },
     operation(operator: Operator): void {
       this.setAlreadyDoneEqualOperation(false);
       if (this.currentOperator !== "") {
         this.clickOnEqualKey();
+        if (this.error || Number.isNaN(+this.currentValue)) {
+          return;
+        }
       }
       this.setCurrentTemporaryValue(this.currentValue);
       this.setCurrentOperator(operator);
@@ -279,14 +290,16 @@ export default defineComponent({
     clickOnAdditionKey(): void {
       this.operation(ADDITION_OPERATOR);
     },
-    clickOnNumber(number: string): void {
+    clickOnNumber(number: string | number): void {
+      const numberValue = number.toString();
+
       if (this.alreadyDoneEqualOperation) {
-        this.setCurrentValue(number);
+        this.setCurrentValue(numberValue);
         this.setCurrentTemporaryValue("0");
         this.setAlreadyDoneEqualOperation(false);
         this.setCurrentOperator("");
       } else {
-        this.addToCurrentValue(number);
+        this.addToCurrentValue(numberValue);
       }
     },
     clickOnNumberZero(): void {
@@ -298,7 +311,11 @@ export default defineComponent({
       this.setCurrentValue((+this.currentValue * -1).toString());
     },
     clickOnPointKey(): void {
-      if (this.currentValue.indexOf(".") === -1) {
+      if (
+        this.goingToDoOperation ||
+        (!Number.isNaN(+this.currentValue) &&
+          this.currentValue.indexOf(".") === -1)
+      ) {
         this.addToCurrentValue(".");
       }
     },

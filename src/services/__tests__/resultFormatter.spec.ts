@@ -11,6 +11,7 @@ describe("resultFormatter", () => {
   test("counts decimal places and calculates the maximum display precision", () => {
     expect(countNumberBeforePoint(1)).toBe(0);
     expect(countNumberBeforePoint(12.345)).toBe(2);
+    expect(countNumberBeforePoint(-12.345)).toBe(2);
     expect(countDecimals(1)).toBe(0);
     expect(countDecimals(1.234)).toBe(3);
     expect(getMinDecimalPlaces(0.7142857142857143)).toBe(11);
@@ -37,6 +38,13 @@ describe("resultFormatter", () => {
     expect(formatResult(-Infinity, "*")).toEqual({
       value: "-infinity",
       isInfinity: true,
+    });
+  });
+
+  test("formats NaN explicitly", () => {
+    expect(formatResult(NaN, "*")).toEqual({
+      value: "NaN",
+      isInfinity: false,
     });
   });
 

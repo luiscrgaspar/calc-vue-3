@@ -23,6 +23,7 @@ describe("calculatorEngine", () => {
   test("returns an error key for invalid factorial input", () => {
     expect(calculateFactorial(-1)).toBe("invalid_factorial_input");
     expect(calculateFactorial(3.5)).toBe("invalid_factorial_input");
+    expect(calculateFactorial(171)).toBe("invalid_factorial_input");
   });
 
   test("calculates percentage only when an operator is active", () => {
@@ -34,6 +35,8 @@ describe("calculatorEngine", () => {
     expect(calculateBinaryOperation("+", 3, 5, false)).toBe(8);
     expect(calculateBinaryOperation("-", 3, 5, false)).toBe(-2);
     expect(calculateBinaryOperation("*", 3, 5, false)).toBe(15);
+    expect(calculateBinaryOperation("*", 1.2, 1.2, false)).toBe(1.44);
+    expect(calculateBinaryOperation("*", 1.25, 1.25, false)).toBe(1.5625);
     expect(calculateBinaryOperation("/", 3, 5, false)).toBe(0.6);
   });
 

@@ -4,7 +4,7 @@
       :class="finalClassButtons[index]"
       v-for="(icon, index) in icons"
       :key="`prop_${index}`"
-      @click="$emit(`handler${index + 1}`, Number.isInteger(+icon) ? icon : undefined )"
+      @click="$emit(`handler${index + 1}`, Number.isInteger(+icon) ? +icon : undefined)"
       :disabled="finalDisabledButtons[index]"
     >
       {{ icon }}
@@ -76,9 +76,9 @@ export default defineComponent({
   }
 
   &-normal-button {
-    &:focus {
-      border: none;
-      outline: none;
+    &:focus-visible {
+      outline: 2px solid #bf6c86;
+      outline-offset: 2px;
     }
 
     &:hover {

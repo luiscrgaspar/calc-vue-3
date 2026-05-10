@@ -9,8 +9,10 @@ export interface FormattedResult {
 }
 
 export function countNumberBeforePoint(value: number): number {
-  if (Math.floor(value) === value) return 0;
-  return value.toString().split(".")[0].length || 0;
+  const absoluteValue = Math.abs(value);
+
+  if (Math.floor(absoluteValue) === absoluteValue) return 0;
+  return absoluteValue.toString().split(".")[0].length || 0;
 }
 
 export function countDecimals(value: number): number {
@@ -34,6 +36,13 @@ export function formatResult(
   result: number,
   operator: Operator | ""
 ): FormattedResult {
+  if (Number.isNaN(result)) {
+    return {
+      value: "NaN",
+      isInfinity: false,
+    };
+  }
+
   if (!Number.isFinite(result)) {
     return {
       value: result === Infinity ? "infinity" : "-infinity",

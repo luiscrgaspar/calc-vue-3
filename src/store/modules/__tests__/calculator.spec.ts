@@ -82,6 +82,18 @@ describe("calculator store module", () => {
     expect(state.goingToDoOperation).toBe(false);
   });
 
+  test("addToCurrentValue ignores duplicate decimal separators", () => {
+    const state = createState({
+      currentValue: "1.2",
+      goingToDoOperation: false,
+    });
+
+    calculatorModule.mutations.addToCurrentValue(state, ".");
+
+    expect(state.currentValue).toBe("1.2");
+    expect(state.goingToDoOperation).toBe(false);
+  });
+
   test("mutations update scalar calculator state", () => {
     const state = createState();
 
