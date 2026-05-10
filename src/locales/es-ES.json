@@ -1,0 +1,9 @@
+{
+  "calculator": "Calculadora",
+  "infinity": "Infinito",
+  "-infinity": "-Infinito",
+  "divided_by_zero": "No se puede dividir por cero",
+  "invalid_number_for_square_root": "N\u00famero inv\u00e1lido para la ra\u00edz cuadrada",
+  "invalid_number_for_cubic_root": "N\u00famero inv\u00e1lido para la ra\u00edz c\u00fabica",
+  "invalid_factorial_input": "N\u00famero inv\u00e1lido para factorial"
+}

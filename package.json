@@ -1,0 +1,51 @@
+{
+  "name": "calc-vue-3",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service test:unit",
+    "test:coverage": "vue-cli-service test:unit --coverage --runInBand",
+    "lint": "vue-cli-service lint",
+    "test:visual": "node scripts/run-visual-tests.cjs",
+    "test:visual:update": "node scripts/run-visual-tests.cjs --update-snapshots"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "vue": "^3.5.13",
+    "vue-i18n": "^9.14.5",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.59.1",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "^5.0.9",
+    "@vue/cli-plugin-eslint": "^5.0.9",
+    "@vue/cli-plugin-typescript": "^5.0.9",
+    "@vue/cli-plugin-unit-jest": "^5.0.9",
+    "@vue/cli-plugin-vuex": "^5.0.9",
+    "@vue/cli-service": "^5.0.9",
+    "@vue/compiler-sfc": "^3.5.13",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "@vue/test-utils": "^2.4.6",
+    "@vue/vue3-jest": "^27.0.0-alpha.4",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "jest": "^27.1.0",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "ts-jest": "^27.1.5",
+    "typescript": "~4.5.5"
+  },
+  "resolutions": {
+    "cross-spawn": "^6.0.6",
+    "webpack-dev-server": "^5.2.1",
+    "postcss": "^8.5.10",
+    "serialize-javascript": "^7.0.3",
+    "@tootallnate/once": "^3.0.1"
+  }
+}

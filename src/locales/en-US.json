@@ -1,0 +1,9 @@
+{
+  "calculator": "Calculator",
+  "infinity": "Infinity",
+  "-infinity": "-Infinity",
+  "divided_by_zero": "Cannot divide by zero",
+  "invalid_number_for_square_root": "Invalid number for square root",
+  "invalid_number_for_cubic_root": "Invalid number for cubic root",
+  "invalid_factorial_input": "Invalid number for factorial"
+}
