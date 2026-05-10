@@ -44,13 +44,13 @@ test.describe('calculator visual states', () => {
     await captureApp(page, 'calculator-divide-by-zero.png');
   });
 
-  test('shows the reciprocal infinity state', async ({ page }) => {
+  test('shows the reciprocal divide-by-zero error state', async ({ page }) => {
     await openCalculator(page);
 
     await clickButton(page, '1/x');
 
-    await expect(page.getByText('Infinity')).toBeVisible();
-    await captureApp(page, 'calculator-infinity.png');
+    await expect(page.getByText('Cannot divide by zero')).toBeVisible();
+    await captureApp(page, 'calculator-reciprocal-error.png');
   });
 
   test('updates translated error copy when the locale changes', async ({ page }) => {

@@ -7,20 +7,20 @@ import pt from "@/locales/pt-PT.json";
 import CalculatorContainer from "@/components/CalculatorContainer/CalculatorContainer.vue";
 import calculator from "@/store/modules/calculator";
 
-const i18n = createI18n({
-  legacy: true,
-  globalInjection: true,
-  locale: "en-US",
-  fallbackLocale: "en-US",
-  messages: {
-    "en-US": en,
-    "es-ES": es,
-    "pt-PT": pt,
-  },
-  silentFallbackWarn: true,
-});
-
 function mountCalculator() {
+  const i18n = createI18n({
+    legacy: true,
+    globalInjection: true,
+    locale: "en-US",
+    fallbackLocale: "en-US",
+    messages: {
+      "en-US": en,
+      "es-ES": es,
+      "pt-PT": pt,
+    },
+    silentFallbackWarn: true,
+  });
+
   const store = createStore({
     modules: { calculator },
   });

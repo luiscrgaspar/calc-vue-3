@@ -1,11 +1,11 @@
-import calculator from "@/store/modules/calculator";
+import calculator, { getDefaultState } from "@/store/modules/calculator";
 import { CalculatorDisplayValue, CalculatorState } from "@/types/Calculator";
 
 type CalculatorPayload = CalculatorDisplayValue | boolean;
 type CalculatorCommit = (mutation: string, payload: CalculatorPayload) => void;
 
 interface CalculatorModule {
-  state: CalculatorState;
+  state: () => CalculatorState;
   getters: Record<string, (state: CalculatorState) => unknown>;
   mutations: Record<string, (state: CalculatorState, payload: CalculatorPayload) => void>;
   actions: Record<string, (context: { commit: CalculatorCommit }, payload: CalculatorPayload) => void>;
@@ -15,7 +15,7 @@ const calculatorModule = calculator as CalculatorModule;
 
 function createState(overrides: Partial<CalculatorState> = {}): CalculatorState {
   return {
-    ...JSON.parse(JSON.stringify(calculatorModule.state)),
+    ...getDefaultState(),
     ...overrides,
   };
 }

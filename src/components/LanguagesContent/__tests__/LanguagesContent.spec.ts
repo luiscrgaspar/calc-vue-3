@@ -6,14 +6,14 @@ import es from "@/locales/es-ES.json";
 import en from "@/locales/en-US.json";
 import pt from "@/locales/pt-PT.json";
 import LanguagesContent from "@/components/LanguagesContent/LanguagesContent.vue";
-import calculator from "@/store/modules/calculator";
+import calculator, { getDefaultState } from "@/store/modules/calculator";
 
 function createTestStore() {
   return createStore({
     modules: {
       calculator: {
         ...calculator,
-        state: JSON.parse(JSON.stringify(calculator.state)),
+        state: getDefaultState,
       },
     },
   });

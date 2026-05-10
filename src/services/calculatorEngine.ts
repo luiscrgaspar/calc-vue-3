@@ -45,7 +45,9 @@ export function calculateFactorial(value: number): FactorialResult {
   return result;
 }
 
-export function calculateReciprocal(value: number): number {
+export function calculateReciprocal(value: number): BinaryOperationResult {
+  if (value === 0) return "divided_by_zero";
+
   return 1 / value;
 }
 
@@ -57,14 +59,27 @@ export function calculateBinaryOperation(
 ): BinaryOperationResult {
   const decimalsCurrentNumber = countDecimals(currentValue);
   const decimalsCurrentTemporaryNumber = countDecimals(currentTemporaryValue);
+  const maxDecimals = Math.max(
+    decimalsCurrentNumber,
+    decimalsCurrentTemporaryNumber
+  );
+  const factor = 10 ** maxDecimals;
 
   switch (operator) {
     case ADDITION_OPERATOR:
-      return currentTemporaryValue + currentValue;
+      return (
+        (Math.round(currentTemporaryValue * factor) +
+          Math.round(currentValue * factor)) /
+        factor
+      );
     case SUBTRACTION_OPERATOR:
-      return !alreadyDoneEqualOperation
-        ? currentTemporaryValue - currentValue
-        : currentValue - currentTemporaryValue;
+      return (
+        !alreadyDoneEqualOperation
+          ? Math.round(currentTemporaryValue * factor) -
+            Math.round(currentValue * factor)
+          : Math.round(currentValue * factor) -
+            Math.round(currentTemporaryValue * factor)
+      ) / factor;
     case MULTIPLICATION_OPERATOR:
       return +(currentTemporaryValue * currentValue).toFixed(
         decimalsCurrentNumber + decimalsCurrentTemporaryNumber

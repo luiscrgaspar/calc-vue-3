@@ -18,6 +18,7 @@ describe("calculatorEngine", () => {
     expect(calculateFactorial(0)).toBe(1);
     expect(calculateFactorial(5)).toBe(120);
     expect(calculateReciprocal(4)).toBe(0.25);
+    expect(calculateReciprocal(0)).toBe("divided_by_zero");
   });
 
   test("returns an error key for invalid factorial input", () => {
@@ -34,6 +35,8 @@ describe("calculatorEngine", () => {
   test("calculates binary operations", () => {
     expect(calculateBinaryOperation("+", 3, 5, false)).toBe(8);
     expect(calculateBinaryOperation("-", 3, 5, false)).toBe(-2);
+    expect(calculateBinaryOperation("+", 0.1, 0.2, false)).toBe(0.3);
+    expect(calculateBinaryOperation("-", 0.3, 0.1, false)).toBe(0.2);
     expect(calculateBinaryOperation("*", 3, 5, false)).toBe(15);
     expect(calculateBinaryOperation("*", 1.2, 1.2, false)).toBe(1.44);
     expect(calculateBinaryOperation("*", 1.25, 1.25, false)).toBe(1.5625);

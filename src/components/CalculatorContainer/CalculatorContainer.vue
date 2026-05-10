@@ -4,7 +4,7 @@
     <div class="calculator-content">
       <HeaderContent
         :error="error"
-        :currentValue="currentValue.toString()"
+        :currentValue="displayValue"
         :currentResult="currentResult.toString()"
       />
       <CalculatorLineContent
@@ -136,6 +136,19 @@ export default defineComponent({
       "alreadyDoneEqualOperation",
       "error",
     ]),
+    displayValue(): string {
+      if (this.error !== "") {
+        return this.$t(this.error);
+      }
+
+      if (this.isInfinity) {
+        return this.currentValue === "-Infinity"
+          ? this.$t("-infinity")
+          : this.$t("infinity");
+      }
+
+      return this.currentResult !== "" ? this.currentResult : this.currentValue;
+    },
   },
   methods: {
     ...mapActions([
@@ -198,16 +211,15 @@ export default defineComponent({
     },
     setFormattedCurrentValue(result: number): void {
       const formattedResult = formatResult(result, this.currentOperator);
+      this.setError("");
       this.setIsInfinity(formattedResult.isInfinity);
       this.setCurrentValue(
-        formattedResult.isInfinity
-          ? this.$t(formattedResult.value)
-          : formattedResult.value
+        formattedResult.isInfinity ? result.toString() : formattedResult.value
       );
     },
     setErrorCurrentValue(error: CalculatorErrorKey): void {
+      this.setIsInfinity(false);
       this.setError(error);
-      this.setCurrentValue(this.$t(error));
     },
     clickOnXToThePowerOf2(): void {
       this.setFormattedCurrentValue(calculateSquare(+this.currentValue));
@@ -220,13 +232,16 @@ export default defineComponent({
       error: CalculatorErrorKey
     ): void {
       this.setIsInfinity(false);
-      this.setCurrentValue(
-        Number.isNaN(value) ? this.$t(error) : formatRootResult(value)
-      );
+      if (Number.isNaN(value)) {
+        this.setError(error);
+        return;
+      }
+
+      this.setError("");
+      this.setCurrentValue(formatRootResult(value));
     },
     clickOnSquareRoot(): void {
       const valueToMakeSquareRoot = calculateSquareRoot(+this.currentValue);
-      this.setError(Number.isNaN(valueToMakeSquareRoot) ? "invalid_number_for_square_root" : "");
       this.setResultOperationOrInvalidInput(
         valueToMakeSquareRoot,
         "invalid_number_for_square_root"
@@ -234,7 +249,6 @@ export default defineComponent({
     },
     clickOnCubicRoot(): void {
       const valueToMakeCubicRoot = calculateCubicRoot(+this.currentValue);
-      this.setError(Number.isNaN(valueToMakeCubicRoot) ? "invalid_number_for_cubic_root" : "");
       this.setResultOperationOrInvalidInput(
         valueToMakeCubicRoot,
         "invalid_number_for_cubic_root"
@@ -253,11 +267,12 @@ export default defineComponent({
     clickOnOneDividedByX(): void {
       const result = calculateReciprocal(+this.currentValue);
 
-      if (!Number.isFinite(result)) {
-        this.setFormattedCurrentValue(result);
+      if (typeof result === "string") {
+        this.setErrorCurrentValue(result);
         return;
       }
 
+      this.setError("");
       this.setIsInfinity(false);
       this.setCurrentValue(formatReciprocalResult(result));
     },
@@ -342,7 +357,7 @@ export default defineComponent({
       }
 
       if (typeof result === "string") {
-        this.setCurrentValue(this.$t(result));
+        this.setErrorCurrentValue(result);
         return;
       }
 

@@ -13,7 +13,7 @@ interface IContext {
   ) => void;
 }
 
-const state: CalculatorState = {
+export const getDefaultState = (): CalculatorState => ({
   languages: [
     {
       key: "en-US",
@@ -40,7 +40,7 @@ const state: CalculatorState = {
   isInfinity: false,
   alreadyDoneEqualOperation: false,
   error: "",
-};
+});
 
 const getters = {
   languages: (state: CalculatorState): Language[] => state.languages,
@@ -148,7 +148,7 @@ const actions = {
 };
 
 export default {
-  state,
+  state: getDefaultState,
   getters,
   mutations,
   actions,

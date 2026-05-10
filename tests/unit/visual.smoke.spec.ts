@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import { createI18n } from "vue-i18n";
 import { createStore } from "vuex";
 import App from "@/App.vue";
-import calculator from "@/store/modules/calculator";
+import calculator, { getDefaultState } from "@/store/modules/calculator";
 import en from "@/locales/en-US.json";
 import es from "@/locales/es-ES.json";
 import pt from "@/locales/pt-PT.json";
@@ -14,7 +14,7 @@ function createVisualStore() {
     modules: {
       calculator: {
         ...calculator,
-        state: JSON.parse(JSON.stringify(calculator.state)),
+        state: getDefaultState,
       },
     },
   });
@@ -82,13 +82,13 @@ describe("visual smoke", () => {
     );
   });
 
-  test("shows the reciprocal infinity state", async () => {
+  test("shows the reciprocal divide-by-zero error state", async () => {
     const wrapper = mountApp();
 
     await clickButton(wrapper, "1/x");
 
     expect(wrapper.find(".calculator-content-header-result-text").text()).toBe(
-      "Infinity"
+      "Cannot divide by zero"
     );
   });
 
