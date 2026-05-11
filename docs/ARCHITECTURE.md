@@ -216,8 +216,8 @@ yarn test:visual
 Notes:
 
 - `coverage/` is a generated Jest artifact and is ignored in `.gitignore`.
-- Guideline: current coverage is expected to stay near 100% for statements,
-  lines, and functions, with branch coverage above 95%.
+- Guideline: coverage should stay very high, with statement, line, and
+  function coverage near 100% and branch coverage above 95%.
 
 ## Best Practices for Future Changes
 
