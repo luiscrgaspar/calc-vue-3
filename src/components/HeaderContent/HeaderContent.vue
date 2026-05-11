@@ -3,6 +3,7 @@
     <span class="calculator-content-header-title">{{ $t("calculator") }}</span>
     <div class="calculator-content-header-result">
       <span
+        data-testid="result"
         :class="`calculator-content-header-result-text ${
           error !== '' ? 'calculator-content-header-result-text-error' : ''
         }`"

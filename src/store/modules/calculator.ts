@@ -57,11 +57,10 @@ const getters = {
 
 const mutations = {
   setCurrentLanguage(state: CalculatorState, payload: string): void {
-    const newLanguages: Language[] = [];
-    state.languages.forEach((lang) => {
-      newLanguages.push({ ...lang, active: lang.key === payload });
-    });
-    state.languages = [...newLanguages];
+    state.languages = state.languages.map((lang) => ({
+      ...lang,
+      active: lang.key === payload,
+    }));
   },
   addToCurrentValue(state: CalculatorState, payload: string): void {
     if (payload === "." && state.goingToDoOperation) {

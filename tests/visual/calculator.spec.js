@@ -5,8 +5,8 @@ const DIVIDE = String.fromCharCode(247);
 
 async function openCalculator(page) {
   await page.goto('/');
-  await expect(page.getByText('Calculator')).toBeVisible();
   await expect(page.locator(APP_ROOT)).toBeVisible();
+  await expect(resultText(page)).toBeVisible();
 }
 
 async function clickButton(page, label) {
@@ -14,7 +14,7 @@ async function clickButton(page, label) {
 }
 
 async function clickLanguage(page, label) {
-  await page.locator(`.calculator-language-${label.toUpperCase()}`).click();
+  await page.getByRole('link', { name: label.toUpperCase(), exact: true }).click();
 }
 
 async function captureApp(page, name) {
@@ -22,7 +22,7 @@ async function captureApp(page, name) {
 }
 
 function resultText(page) {
-  return page.locator('.calculator-content-header-result-text');
+  return page.getByTestId('result');
 }
 
 test.describe('calculator visual states', () => {
@@ -47,6 +47,7 @@ test.describe('calculator visual states', () => {
   test('shows the reciprocal divide-by-zero error state', async ({ page }) => {
     await openCalculator(page);
 
+    await clickButton(page, '0');
     await clickButton(page, '1/x');
 
     await expect(page.getByText('Cannot divide by zero')).toBeVisible();
