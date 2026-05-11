@@ -1,34 +1,42 @@
 # calc-vue-3
 
-## Project setup
+Simple scientific calculator built with Vue 3, TypeScript, Vuex, and vue-i18n.
+
+## Setup
 
 ```bash
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+## Development
 
 ```bash
 yarn start
 ```
 
-### Compiles and minifies for production
+## Build
 
 ```bash
 yarn build
 ```
 
-### Run your unit tests
+## Tests
 
 ```bash
 yarn test
 ```
 
-### Lints and fixes files
+## Lint
 
 ```bash
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Docs
+
+- [Architecture and best practices](docs/ARCHITECTURE.md)
+- [Contributing guide](CONTRIBUTING.md)
+
+## Vue CLI Reference
+
+See the [configuration reference](https://cli.vuejs.org/config/).
