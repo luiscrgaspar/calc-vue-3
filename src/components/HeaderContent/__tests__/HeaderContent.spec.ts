@@ -45,6 +45,9 @@ describe("HeaderContent", () => {
     );
     expect(calculatorHeaderResultText.exists()).toBe(true);
     expect(calculatorHeaderResultText.text()).toBe("0");
+    expect(calculatorHeaderResultText.attributes("role")).toBe("status");
+    expect(calculatorHeaderResultText.attributes("aria-live")).toBe("polite");
+    expect(calculatorHeaderResultText.attributes("aria-atomic")).toBe("true");
 
     const calculatorHeaderResultTextError = wrapper.find(
       ".calculator-content-header-result-text-error"
@@ -78,6 +81,7 @@ describe("HeaderContent", () => {
     );
     expect(calculatorHeaderResultText.exists()).toBe(true);
     expect(calculatorHeaderResultText.text()).toBe("100");
+    expect(calculatorHeaderResultText.attributes("aria-live")).toBe("polite");
 
     const calculatorHeaderResultTextError = wrapper.find(
       ".calculator-content-header-result-text-error"
@@ -121,6 +125,9 @@ describe("HeaderContent", () => {
     expect(calculatorHeaderResultTextError.exists()).toBe(true);
     expect(calculatorHeaderResultTextError.text()).toBe(
       "Cannot divide by zero"
+    );
+    expect(calculatorHeaderResultTextError.attributes("aria-live")).toBe(
+      "assertive"
     );
   });
 });

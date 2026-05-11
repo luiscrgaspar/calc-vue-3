@@ -58,6 +58,14 @@ describe("calculator store module", () => {
     ]);
   });
 
+  test("setCurrentLanguage ignores unknown language keys", () => {
+    const state = createState();
+
+    calculatorModule.mutations.setCurrentLanguage(state, "fr-FR");
+
+    expect(state.languages).toEqual(getDefaultState().languages);
+  });
+
   test("addToCurrentValue starts a decimal value after selecting an operator", () => {
     const state = createState({
       currentValue: "8",

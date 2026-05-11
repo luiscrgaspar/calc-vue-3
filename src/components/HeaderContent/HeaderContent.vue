@@ -4,6 +4,9 @@
     <div class="calculator-content-header-result">
       <span
         data-testid="result"
+        role="status"
+        :aria-live="error !== '' ? 'assertive' : 'polite'"
+        aria-atomic="true"
         :class="`calculator-content-header-result-text ${
           error !== '' ? 'calculator-content-header-result-text-error' : ''
         }`"

@@ -57,6 +57,10 @@ const getters = {
 
 const mutations = {
   setCurrentLanguage(state: CalculatorState, payload: string): void {
+    if (!state.languages.some((lang) => lang.key === payload)) {
+      return;
+    }
+
     state.languages = state.languages.map((lang) => ({
       ...lang,
       active: lang.key === payload,
